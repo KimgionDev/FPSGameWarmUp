@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -7,6 +7,7 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private float jumpHeight = 2f;
 
     private void Awake()
     {
@@ -32,5 +33,13 @@ public class PlayerMotor : MonoBehaviour
         }
         controller.Move(playerVelocity * Time.deltaTime);
         Debug.Log(playerVelocity.y + "" + isGrounded);
+    }
+
+    public void Jump()
+    {
+        if (isGrounded)
+        {                                                               // Công thức liên hệ gia tốc và quãng đường
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);  // v bình – v0 bình = 2.a.s
+        }                                                               // v0 là playerVelocity.y (vận tốc ban đầu khi nhảy)
     }
 }
